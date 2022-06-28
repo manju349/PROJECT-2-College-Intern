@@ -1,4 +1,4 @@
-const internModel = require('../model')
+const internModel = require('../model/internModel')
 
 const createIntern = async function (req,res){
 

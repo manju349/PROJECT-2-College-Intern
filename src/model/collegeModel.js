@@ -18,9 +18,9 @@ const collegeSchema = new mongoose.Schema({
         trim: true
     },
     isDeleted : {
-        type : Date,
+        type : Boolean,
         default : false
     }
 }, {timestamps:true} )
 
-module.exports = mongoose.model("College", collegeSchema)
+module.exports = mongoose.model("college", collegeSchema)

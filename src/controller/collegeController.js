@@ -1,4 +1,4 @@
-const collegeModel = require ('../model/')
+const collegeModel = require ('../model/collegeModel')
 
 const createColleges = async function (req,res){
 
