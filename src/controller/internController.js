@@ -1,6 +1,7 @@
 const internModel = require('../model/internModel')
 const validator = require ('../validator/validator')
 
+
 const createIntern = async function (req,res){
 
     try {
@@ -26,6 +27,8 @@ const createIntern = async function (req,res){
     if (!validator.isValidEmail(internData.email)){
         return res.status(400).send({status: false, msg: "Enter valid email id"})
     }
+    
+    
     let emailExist = await internModel.findOne({email: internData.email})
     if (emailExist){
         return res.status(400).send({status: false, msg: "Email is already registered"})
@@ -53,7 +56,14 @@ const createIntern = async function (req,res){
 
     // CREATE INTERN DATA
     let newIntern = await internModel.create(internData);
-    return res.status(201).send({status: true, data: newIntern})
+    let result = {}
+    result.isDeleted = newIntern.isDeleted
+    result.name = internData.name 
+    result.email = internData.email 
+    result.mobile = internData.mobile 
+    result.collegeId = internData.collegeId 
+    
+    return res.status(201).send({status: true, data: result})
     }
     catch(error){
         res.status(500).send({status: false, msg: error.message})
