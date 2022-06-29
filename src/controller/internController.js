@@ -57,11 +57,15 @@ const createIntern = async function (req,res){
     // CREATE INTERN DATA
     let newIntern = await internModel.create(internData);
     let result = {}
-    result.isDeleted = newIntern.isDeleted
-    result.name = internData.name 
-    result.email = internData.email 
-    result.mobile = internData.mobile 
-    result.collegeId = internData.collegeId 
+
+
+    //To add multiple key/value pairs to an object in the same statement, use the Object.assign()
+    Object.assign(result,{isDeleted : newIntern.isDeleted,
+        name : internData.name, 
+        email : internData.email,
+        mobile : internData.mobile,
+        collegeId : internData.collegeId 
+    })
     
     return res.status(201).send({status: true, data: result})
     }
