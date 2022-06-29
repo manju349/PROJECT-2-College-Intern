@@ -41,7 +41,7 @@ const createColleges = async function (req,res){
     }
 
     // CREATE COLLEGE DATA
-    let newCollege = await collegeModel.create(collegeData);
+    let newCollege = await (await collegeModel.create(collegeData));
     return res.status(201).send({status: true, data: newCollege})
     }
     catch (error){
@@ -76,35 +76,4 @@ const getCollegeDetails = async function (req,res){
     }
 }
 
-module.exports.getCollegeDetails = getCollegeDetails
-module.exports.createColleges = createColleges
-
-//.....................
-
-
-
-//..........................
-// const getCollegeDetails = async function (req,res){
-//     try
-//     {
-//         let collegeNames = req.query.collegeName
-//         if (!validator.isValidField(collegeNames)){
-//             return res.status(400).send({status: false, msg: "Enter valid college name"})
-//         }
-
-//         let college = await collegeModel.findOne({ name : collegeNames, isDeleted : false }).select({name:1, fullName: 1, logoLink:1})
-//         if (college == null){
-//             return res.status(404).send({status: false, msg: "college not found"})
-//         }
-
-//         const interns = await internModel.find({ collegeId : college._id, isDeleted : false }).select({_id:1, name:1, email:1, mobile:1})
-//         res.status(200).send({status : true, data : college, interns });
-//         if (interns.length == 0){
-//             return res.status(404).send({status: false, msg: "no interns found"})
-//         }
-//     }
-//     catch(error)
-//     {
-//         res.status(500).send({ status : false, message : error.message });
-//     }
-// }
+module.exports = {createColleges, getCollegeDetails}
