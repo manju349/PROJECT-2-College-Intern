@@ -20,8 +20,8 @@ const createColleges = async function (req,res){
         return res.send({status: false, msg: "Name is not valid"})
     }
 
-    let collegeName = await collegeModel.findOne({name: collegeData.name})
-    if (collegeName){
+    let collegeNames = await collegeModel.findOne({name: collegeData.name})
+    if (collegeNames){
         return res.send({status: false, msg: "This name already exists"})
     }
 
@@ -65,7 +65,7 @@ const getCollegeDetails = async function (req,res){
             if (!interns) return res.status(404).send({ status: false, message: `Interns does not exit` });
          
     
-            res.status(200).send({status: true, data: { name: newCollege.name, fullName: newCollege.fullName, logoLink: newCollege.logoLink, interests: interns } })
+            res.status(200).send({status: true, data: { name: newCollege.name, fullName: newCollege.fullName, logoLink: newCollege.logoLink, interns: interns } })
     
         } catch (error) {
             res.status(500).send({ status: false, message: error.message });
