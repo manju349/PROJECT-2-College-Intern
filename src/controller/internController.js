@@ -27,8 +27,6 @@ const createIntern = async function (req,res){
     if (!validator.isValidEmail(internData.email)){
         return res.status(400).send({status: false, msg: "Enter valid email id"})
     }
-    
-    
     let emailExist = await internModel.findOne({email: internData.email})
     if (emailExist){
         return res.status(400).send({status: false, msg: "Email is already registered"})
@@ -58,7 +56,6 @@ const createIntern = async function (req,res){
     let newIntern = await internModel.create(internData);
     let result = {}
 
-
     //To add multiple key/value pairs to an object in the same statement, use the Object.assign()
     Object.assign(result,{isDeleted : newIntern.isDeleted,
         name : internData.name, 
@@ -66,10 +63,9 @@ const createIntern = async function (req,res){
         mobile : internData.mobile,
         collegeId : internData.collegeId 
     })
-    
     return res.status(201).send({status: true, data: result})
-    }
-    catch(error){
+    
+    }catch(error){
         res.status(500).send({status: false, msg: error.message})
     }
 }
