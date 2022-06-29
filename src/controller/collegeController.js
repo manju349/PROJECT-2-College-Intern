@@ -16,11 +16,24 @@ const createColleges = async function (req,res){
 
 
 const getCollegeDetails = async function (req,res){
-    let collegeName = req.query.collegeName
-    let data = await collegeModel.findOne({name: collegeName}).select({name: 1, fullName: 1, logoLink: 1, _id:0})
-    let interns = await internModel.find().select({_id:1, name: 1, email:1, mobile:1})
-    res.send({status: true, data: {data, interns}})
-}
+        try {
+            const collegeName = req.query.collegeName
+            if (!collegeName) return res.status(400).send({ status: false, message: 'College name is required to access data' })
+    
+            const newCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false });
+            if (!newCollege) return res.status(404).send({ status: false, message: `College does not exit` });
+    
+    
+            const interns = await internModel.find({ collegeId: newCollege._id, isDeleted: false }, { name: 1, email: 1, mobile: 1 });
+            if (!interns) return res.status(404).send({ status: false, message: `Interns does not exit` });
+         
+    
+            res.status(200).send({status: true, data: { name: newCollege.name, fullName: newCollege.fullName, logoLink: newCollege.logoLink, interests: interns } })
+    
+        } catch (error) {
+            res.status(500).send({ status: false, message: error.message });
+        }
+    }
 
 module.exports.getCollegeDetails = getCollegeDetails
 module.exports.createColleges = createColleges
