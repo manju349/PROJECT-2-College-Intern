@@ -79,6 +79,9 @@ const getCollegeDetails = async function (req,res){
 module.exports.getCollegeDetails = getCollegeDetails
 module.exports.createColleges = createColleges
 
+//.....................
+
+
 
 //..........................
 // const getCollegeDetails = async function (req,res){
