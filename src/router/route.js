@@ -5,7 +5,6 @@ const internController = require ('../controller/internController')
 
 router.post ('/functionup/colleges', collegeController.createColleges)
 router.post  ('/functionup/interns', internController.createIntern)
-router.get ('/functionup/collegeDetails', collegeController.listOfInterns)
-
+router.get ('/functionup/collegeDetails', collegeController.getCollegeDetails)
 
 module.exports = router

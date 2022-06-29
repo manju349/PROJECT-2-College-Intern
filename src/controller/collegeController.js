@@ -1,4 +1,6 @@
-const collegeModel = require ('../model/collegeModel')
+const collegeModel = require ('../model/collegeModel');
+const internModel = require('../model/internModel');
+const validator = require ('../validator/validator')
 
 const createColleges = async function (req,res){
 
@@ -12,6 +14,15 @@ const createColleges = async function (req,res){
     }
 }
 
+
+const getCollegeDetails = async function (req,res){
+    let collegeName = req.query.collegeName
+    let data = await collegeModel.findOne({name: collegeName}).select({name: 1, fullName: 1, logoLink: 1, _id:0})
+    let interns = await internModel.find().select({_id:1, name: 1, email:1, mobile:1})
+    res.send({status: true, data: {data, interns}})
+}
+
+module.exports.getCollegeDetails = getCollegeDetails
 module.exports.createColleges = createColleges
 
 
