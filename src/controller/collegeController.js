@@ -70,10 +70,10 @@ const getCollegeDetails = async function (req, res) {
         }
 
         const interns = await internModel.find({ collegeId: collegeId._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
-        res.status(200).send({ status: true, data: college, interns });
         if (interns.length == 0) {
             return res.status(404).send({ status: false, msg: "no interns found" })
         }
+        res.status(200).send({ status: true, data: college, interns });
     }
     catch (error) {
         res.status(500).send({ status: false, message: error.message });
