@@ -45,7 +45,7 @@ const createIntern = async function (req,res){
         return res.status(400).send({status: false, msg: "Mobile has been already registered"})
     }
 
-    // COLLEGE ID VALIDATION
+    // COLLEGE NAME VALIDATION
     if (!validator.isValidField(internData.collegeName)){
         return res.status(400).send({status: false, msg: "Enter college Id"})
     }
@@ -60,7 +60,8 @@ const createIntern = async function (req,res){
     let result = {}
 
     //To add multiple key/value pairs to an object in the same statement, use the Object.assign()
-    Object.assign(result,{isDeleted : createdIntern.isDeleted,
+    Object.assign(result,
+        {isDeleted : createdIntern.isDeleted,
         name : internData.name.trim(), 
         email : internData.email,
         mobile : internData.mobile,
